@@ -4,7 +4,7 @@
 
 use App\Model;
 use Faker\Generator as Faker;
-// use App\BigQuestion;
+use App\BigQuestion;
 
 $factory->define(BigQuestion::class, function (Faker $faker) {
     return [
