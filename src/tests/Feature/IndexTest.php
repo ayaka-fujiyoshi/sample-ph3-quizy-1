@@ -16,11 +16,11 @@ class IndexTest extends TestCase
      */
     public function testExample()
     {
+        $Question = factory(BigQuestion::class)->create();
         $response = $this->get('/');
 
         $response->assertStatus(200);
-        
-        $Question = factory(BigQuestion::class)->create();
+                
         $response->assertSeeText('東京の難読地名クイズ');
         $response->assertSeeText('広島の難読地名クイズ');
         $response->assertSee($Question->name);
