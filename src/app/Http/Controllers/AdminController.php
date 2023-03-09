@@ -42,6 +42,22 @@ class AdminController extends Controller
     }
 
     public function edit(Request $request, $id) {
+        // DBに存在しないIDを編集した場合、404エラーにする
+        if(!Question::find($id)){
+            return abort(404);
+        }
+        // (2)選択肢1〜3を入力必須、正解のラジオボタンを選択必須にする
+        // (3)選択肢1〜3は20文字以内
+        // (4)正解のラジオボタンの値は「0,1,2」のみ
+        $request->validate(
+           [
+           'name0' => 'required|max:20',
+           'name1' => 'required|max:20',
+           'name2' => 'required|max:20',
+           'valid' => 'required|between:0,2|numeric',
+           ]
+        );
+        
         $choices = Question::find($id)->choices;
         foreach ($choices as $index => $choice) {
             $choice->name = $request->{'name'.$index};
